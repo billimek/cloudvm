@@ -21,4 +21,4 @@ gcloud beta compute ssh \
   --tunnel-through-iap "<some user>@cloud"
 ```
 
-(requires terraform > v0.12)
+(requires terraform >= v0.12)
