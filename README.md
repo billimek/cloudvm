@@ -1,4 +1,4 @@
-# Using terraform to provision a free-tier google cloud compute engine which will only allow access via Identity-Aware Proxy (IAP)
+# Using terraform to provision a [free-tier](https://cloud.google.com/free/docs/gcp-free-tier#always-free-usage-limits) google cloud compute engine which will only allow access via Identity-Aware Proxy (IAP)
 
 Benefits/Uses of this approach:
 
