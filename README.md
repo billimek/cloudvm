@@ -10,9 +10,15 @@ Benefits/Uses of this approach:
 For example:
 
 ```shell
+export GOOGLE_CLOUD_KEYFILE_JSON="<some google cloud account json file>"
+terraform init
+terraform apply
+
 gcloud beta compute ssh \
   --account "<some GCP account address>" \\
   --project "<some GCP project name>" \\
   --zone "us-east1-b" \\
   --tunnel-through-iap "<some user>@cloud"
 ```
+
+(requires terraform > v0.12)
