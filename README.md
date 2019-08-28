@@ -2,7 +2,7 @@
 
 Benefits/Uses of this approach:
 
-* No external-facing IP for a VM
+* ~~No external-facing IP for a VM~~ cloud NAT isn't yet free tier
 * Essentially https-based SSH access to a VM (via the gcloud-wrapped IAP session)
 * Remote, secure 'home shell' (additional egress charges may apply)
 * Secure https-based ssh proxy to access other remote ssh resources (additional egress charges may apply)
