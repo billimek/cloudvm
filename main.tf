@@ -26,7 +26,7 @@ resource "google_compute_instance" "vm_instance" {
   metadata_startup_script = <<SCRIPT
     sysctl -w net.ipv4.ip_forward=1
     echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/99-sysctl.conf
-    wget -O /wireguard-server.sh https://raw.githubusercontent.com/complexorganizations/wireguard-install/master/wireguard-server.sh
+    curl -o /wireguard-server.sh https://raw.githubusercontent.com/complexorganizations/wireguard-install/master/wireguard-server.sh
     chmod a+x /wireguard-server.sh
     SCRIPT
 }
