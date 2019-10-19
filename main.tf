@@ -1,13 +1,14 @@
 provider "google" {
-#   credentials = file(var.credentials)
+  #   credentials = file(var.credentials)
   project = var.project
   region  = var.region
   zone    = var.zone
 }
 
 resource "google_compute_instance" "vm_instance" {
-  name         = "cloud"
-  machine_type = "f1-micro"
+  name           = "cloud"
+  machine_type   = "f1-micro"
+  can_ip_forward = "true"
 
   boot_disk {
     initialize_params {
@@ -16,11 +17,18 @@ resource "google_compute_instance" "vm_instance" {
   }
 
   network_interface {
-    network       = "default"
+    network = "default"
     access_config {
     }
   }
   tags = ["cloud-vm"]
+
+  metadata_startup_script = <<SCRIPT
+    sysctl -w net.ipv4.ip_forward=1
+    echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.d/99-sysctl.conf
+    wget -O /wireguard-server.sh https://raw.githubusercontent.com/complexorganizations/wireguard-install/master/wireguard-server.sh
+    chmod a+x /wireguard-server.sh
+    SCRIPT
 }
 
 # resource "google_compute_router" "router" {
@@ -41,13 +49,25 @@ resource "google_compute_instance" "vm_instance" {
 # }
 
 resource "google_compute_firewall" "allow-ssh-from-iap" {
-  name    = "allow-ssh-from-iap"
-  network = "default"
+  name          = "allow-ssh-from-iap"
+  network       = "default"
   source_ranges = ["35.235.240.0/20"]
-  target_tags = ["cloud-vm"]
+  target_tags   = ["cloud-vm"]
 
   allow {
     protocol = "tcp"
     ports    = ["22"]
+  }
+}
+
+resource "google_compute_firewall" "allow-wireguard" {
+  name          = "allow-wireguard"
+  network       = "default"
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["cloud-vm"]
+
+  allow {
+    protocol = "udp"
+    ports    = ["51820"]
   }
 }
