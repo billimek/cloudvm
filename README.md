@@ -22,11 +22,21 @@ gcloud beta compute ssh \
   --tunnel-through-iap "<some user>@cloud"
 ```
 
-To complete wireguard VPN and pihole configuration, ssh to the VM and run `/wireguard-server.sh`
+To configure a client to use the wireguard VPN via QR Code, ssh to the VM (using the IAP instructions above) and run,
+
+```shell
+qrencode -t ansiutf8 -l L < /etc/wireguard/clients/mobile-wg0.conf
+```
+
+... and scan the generated QR code with your wireguard client.
+
+To add additional wireguard peers or change the wireguard configuration, ssh to the VM (using the IAP instructions above) and run,
+
+```shell
+sudo /wireguard-server.sh
+```
 
 (requires terraform >= v0.12)
 
-**TODO:** automate installation of pihle and wireguard so that a manual interaction is not necessary.
-
-(example of the entire process):
+(example of the entire terraform process):
 [![asciicast](https://asciinema.org/a/275480.png)](https://asciinema.org/a/275480?speed=2)
