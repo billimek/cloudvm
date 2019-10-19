@@ -26,4 +26,7 @@ To complete wireguard VPN and pihole configuration, ssh to the VM and run `/wire
 
 (requires terraform >= v0.12)
 
-**TODO:** automate installation of pihle and wireguard so that a manual interaction is not necessary
+**TODO:** automate installation of pihle and wireguard so that a manual interaction is not necessary.
+
+(example of the entire process):
+[![asciicast](https://asciinema.org/a/275480.png)](https://asciinema.org/a/275480?speed=2)
